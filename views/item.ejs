@@ -1,0 +1,58 @@
+<%- layout ('/layouts/boilerplate.ejs')  %>
+<body>
+    <div class="item-container">
+        <span class="card-title item-title"><%= item.title %></span>
+        <div>
+            <img src="<%= item.image %>" alt="<%= item.title %>">
+        </div>
+        <div class="card-txt item-txt">
+            <br>
+            <span class="card-location fs-4">Found in <b class="text-decoration-underline"><%= item.location %></b></span>
+            <br>
+            <span class="item-description d-block fs-5"><%= item.description %></span>
+            <br>
+            <div class="card-btn text-start fs-5">
+                <% if (!CurrUser || String(CurrUser._id) !== String(item.reporter)) { %>
+                <form action="/items/<%=item.id%>/claim" method="get">
+                    <input type="submit" value="Claim" />
+                </form>
+                <% } else { %>
+                    <form action="/items/<%=item.id%>/edit" method="get" class="mb-2">
+                        <input type="submit" value="Edit" />
+                    </form>
+                    <form action="/items/<%=item.id%>?_method=DELETE" method="post">
+                        <input type="submit" value="Owner Found" />
+                    </form>
+               
+            </div>
+            <br>
+        <% if (item.claims.length > 0) {%>
+            <h2 class="fw-bold">Claims: </h2>
+            <% item.claims.map((claim)=>{ %>
+            <div class="claims bg-white mb-2">
+                        <span class="fs-5 fw-bold">Name: </span>&ensp;<span class="fs-5"><%= claim.name %></span>
+                        <br>
+                        <span class="fs-5 fw-bold">Contact: </span>&ensp;<span class="fs-5"><%= claim.contact %></span>
+                        <br>
+                        <h5 class="fs-5 fw-bold pb-1">Questions: </h5>
+                        <div class="questions">
+                            <% item.questions.map((question,idx)=>{ %>
+                                <h5 class="fs-6 fw-bold">Q) <%= question %></h5>
+                                <p class="fs-6"><%= claim.answers[idx] %></p>
+                            <% }) %>
+                        </div>
+                    <% if (claim.explaination) {%>
+                            <span class="fs-5 fw-bold pb-1">Explaination: </span>
+                            <br><span class="fs-5"><%= claim.explaination %></span>
+                    <% } %>
+                    <% if (claim.image) {%>
+                            <span class="fs-5 fw-bold pb-1">Proof: </span>
+                            <img src="<%= claim.image %>" class="form-img">
+                    <% } %>
+            </div>
+            <% }) %>
+        <% } %>
+        <% } %>
+        </div>
+    </div>
+</body>

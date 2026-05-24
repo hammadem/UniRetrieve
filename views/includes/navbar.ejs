@@ -1,0 +1,137 @@
+<nav class="navbar sticky-top border-bottom">
+    <div class="container-fluid navbar-container row w-100 m-0">
+        
+        <div class="logo-container col-12">        
+            <h2 class="logo"><a href="/items">UniRetrieve</a></h2>
+        </div>
+         <!-- Mobile Only Links -->
+        <div class="col-12 mt-2">
+            <div class="nav-item-container row align-items-center">
+                <a class="nav-link col-6 visible-small" href="/report">
+                    <div class="nav-item">
+                        <p class="mb-0">Report Found</p>
+                    </div>
+                </a>
+                <% if (CurrUser) {%>
+                <div class="col-6 visible-small">
+                    <a class="nav-link text-center col-6" href="/dashboard">
+                        <div class="nav-item-simple">
+                            <p class="mb-0">Dashboard</p>
+                        </div>
+                    </a>
+                    <form action="/logout" method="post" class="nav-link text-center col-6">
+                        <div class="nav-item-simple">
+                            <input type="submit" value="logout" class="mb-0 nav-form-btn">
+                        </div>
+                    </form>
+                </div>
+                <%} else {%>
+                <div class="col-6 visible-small">
+                    <div class="row">
+                    <a class="nav-link text-center col-6" href="/login">
+                        <div class="nav-item-simple">
+                            <p class="mb-0">login</p>
+                        </div>
+                    </a>
+                    <a class="nav-link text-center col-6" href="/signup">
+                        <div class="nav-item-simple">
+                            <p class="mb-0">sign up</p>
+                        </div>
+                    </a>
+                    </div>
+                </div> 
+                <% } %>
+
+            <!-- Location Filter -->
+                <div class="col-xxl-3 col-md-4 col-12 my-2 my-md-0">
+                    <form action="/items/location" method="get">
+                        <select class="form-select nav-item location-dropdown" name="location" onchange="this.form.submit()">
+                            <option value="null">Search Location</option>
+                            <option value="anywhere" class="fw-bolder">anywhere</option>
+                            <optgroup label="Academic Blocks">
+                                <option value="CS (New Block)">CS (New Block)</option>
+                                <option value="EE & CE">EE & CE</option>
+                                <option value="ME Block">ME Block</option>
+                                <option value="CVE Block">CVE Block</option>
+                                <option value="Management Sciences Block">Management Sciences Block</option>
+                                <option value="Mathematics Department">Mathematics Department</option>
+                                <option value="Humanities Department">Humanities Department</option>
+                            </optgroup>
+                            <optgroup label="Common Areas">
+                                <option value="Central Library">Central Library</option>
+                                <option value="Main Cafeteria">Main Cafeteria</option>
+                                <option value="Student Service Center">Student Service Center</option>
+                                <option value="Prayer Area / Mosque">Prayer Area / Mosque</option>
+                                <option value="University Auditorium">University Auditorium</option>
+                                <option value="Sports Complex / Gym">Sports Complex / Gym</option>
+                            </optgroup>
+                            <optgroup label="Labs">
+                                <option value="General Computing Labs">General Computing Labs</option>
+                                <option value="Software Engineering Lab">Software Engineering Lab</option>
+                                <option value="DLD Lab">DLD Lab</option>
+                                <option value="Mechanical Workshop">Mechanical Workshop</option>
+                                <option value="Science Labs (Physics/Chem)">Science Labs (Physics/Chem)</option>
+                            </optgroup>
+                            <optgroup label="Admin & Support">
+                                <option value="Admin Block (Reception)">Admin Block (Reception)</option>
+                                <option value="Examination Department">Examination Department</option>
+                                <option value="Accounts / Treasurer Office">Accounts / Treasurer Office</option>
+                                <option value="Admission Office">Admission Office</option>
+                                <option value="Medical Center">Medical Center</option>
+                                <option value="Photocopy / Stationery Shop">Photocopy / Stationery Shop</option>
+                            </optgroup>
+                            <optgroup label="Outdoor & Transport">
+                                <option value="University Bus Stand">University Bus Stand</option>
+                                <option value="Student Parking Area">Student Parking Area</option>
+                                <option value="Faculty Parking Area">Faculty Parking Area</option>
+                                <option value="Cricket / Football Grounds">Cricket / Football Grounds</option>
+                                <option value="Main Entrance (Gate 1)">Main Entrance (Gate 1)</option>
+                                <option value="Campus Walkways / Corridors">Campus Walkways / Corridors</option>
+                            </optgroup>
+                            <optgroup label="Residential">
+                                <option value="Male Hostel">Male Hostel</option>
+                                <option value="Female Hostel">Female Hostel</option>
+                            </optgroup>
+                            <optgroup label="Other">
+                                <option value="Other / Miscellaneous">Other / Miscellaneous</option>
+                            </optgroup>
+                        </select>
+                    </form>
+                </div>
+                
+                <!-- Desktop-Only Links -->
+                <div class="col-xxl-9 col-md-8 d-flex justify-content-end align-items-center hide-small gap-3">
+                    <a class="nav-link" href="/items/report">
+                        <div class="nav-item">
+                            <p class="mb-0">Report Found</p>
+                        </div>
+                    </a>
+                    <% if (!CurrUser) {%>
+                    <a class="nav-link text-center" href="/login">
+                        <div class="nav-item-simple">
+                            <p class="mb-0">login</p>
+                        </div>
+                    </a>
+                    <a class="nav-link text-center" href="/signup">
+                        <div class="nav-item-simple">
+                            <p class="mb-0">sign up</p>
+                        </div>
+                    </a>
+                    <% } else {%>
+                    <a class="nav-link text-center" href="/dashboard">
+                        <div class="nav-item-simple">
+                            <p class="mb-0">Dashboard</p>
+                        </div>
+                    </a>
+                    <form action="/logout" method="post" class="nav-link text-center">
+                        <div class="nav-item-simple">
+                            <input type="submit" value="logout" class="mb-0 nav-form-btn">
+                        </div>
+                    </form>
+                    <% } %>
+                </div>
+
+            </div>
+        </div>           
+    </div>
+</nav> 

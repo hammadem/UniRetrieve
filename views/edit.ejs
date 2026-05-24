@@ -1,0 +1,119 @@
+<%- layout('/layouts/boilerplate.ejs') %>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 shadow-sm p-4 rounded border">
+                <h2 class="mb-4 text-center fw-bold">Edit Item</h2>
+                
+                <form action="/items/<%=item._id%>?_method=PATCH" method="post" enctype="multipart/form-data">
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="title" placeholder="Item Title" name="item[title]" value="<%=item.title%>" required>
+                        <label for="title">Item Title</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="location" name="item[location]" aria-label="Location Select" required>
+                            <optgroup label="Academic Blocks">
+                                <option value="CS (New Block)" <%= item.location === "CS (New Block)" ? 'selected' : '' %>>CS (New Block)</option>
+                                <option value="EE & CE" <%= item.location === "EE & CE" ? 'selected' : '' %>>EE & CE</option>
+                                <option value="ME Block" <%= item.location === "ME Block" ? 'selected' : '' %>>ME Block</option>
+                                <option value="CVE Block" <%= item.location === "CVE Block" ? 'selected' : '' %>>CVE Block</option>
+                                <option value="Management Sciences Block" <%= item.location === "Management Sciences Block" ? 'selected' : '' %>>Management Sciences Block</option>
+                                <option value="Mathematics Department" <%= item.location === "Mathematics Department" ? 'selected' : '' %>>Mathematics Department</option>
+                                <option value="Humanities Department" <%= item.location === "Humanities Department" ? 'selected' : '' %>>Humanities Department</option>
+                            </optgroup>
+                    
+                            <optgroup label="Common Areas">
+                                <option value="Central Library" <%= item.location === "Central Library" ? 'selected' : '' %>>Central Library</option>
+                                <option value="Main Cafeteria" <%= item.location === "Main Cafeteria" ? 'selected' : '' %>>Main Cafeteria</option>
+                                <option value="Student Service Center" <%= item.location === "Student Service Center" ? 'selected' : '' %>>Student Service Center</option>
+                                <option value="Prayer Area / Mosque" <%= item.location === "Prayer Area / Mosque" ? 'selected' : '' %>>Prayer Area / Mosque</option>
+                                <option value="University Auditorium" <%= item.location === "University Auditorium" ? 'selected' : '' %>>University Auditorium</option>
+                                <option value="Sports Complex / Gym" <%= item.location === "Sports Complex / Gym" ? 'selected' : '' %>>Sports Complex / Gym</option>
+                            </optgroup>
+                    
+                            <optgroup label="Labs">
+                                <option value="General Computing Labs" <%= item.location === "General Computing Labs" ? 'selected' : '' %>>General Computing Labs</option>
+                                <option value="Software Engineering Lab" <%= item.location === "Software Engineering Lab" ? 'selected' : '' %>>Software Engineering Lab</option>
+                                <option value="DLD Lab" <%= item.location === "DLD Lab" ? 'selected' : '' %>>DLD Lab</option>
+                                <option value="Mechanical Workshop" <%= item.location === "Mechanical Workshop" ? 'selected' : '' %>>Mechanical Workshop</option>
+                                <option value="Science Labs (Physics/Chem)" <%= item.location === "Science Labs (Physics/Chem)" ? 'selected' : '' %>>Science Labs (Physics/Chem)</option>
+                            </optgroup>
+                    
+                            <optgroup label="Admin & Support">
+                                <option value="Admin Block (Reception)" <%= item.location === "Admin Block (Reception)" ? 'selected' : '' %>>Admin Block (Reception)</option>
+                                <option value="Examination Department" <%= item.location === "Examination Department" ? 'selected' : '' %>>Examination Department</option>
+                                <option value="Accounts / Treasurer Office" <%= item.location === "Accounts / Treasurer Office" ? 'selected' : '' %>>Accounts / Treasurer Office</option>
+                                <option value="Admission Office" <%= item.location === "Admission Office" ? 'selected' : '' %>>Admission Office</option>
+                                <option value="Medical Center" <%= item.location === "Medical Center" ? 'selected' : '' %>>Medical Center</option>
+                                <option value="Photocopy / Stationery Shop" <%= item.location === "Photocopy / Stationery Shop" ? 'selected' : '' %>>Photocopy / Stationery Shop</option>
+                            </optgroup>
+                    
+                            <optgroup label="Outdoor & Transport">
+                                <option value="University Bus Stand" <%= item.location === "University Bus Stand" ? 'selected' : '' %>>University Bus Stand</option>
+                                <option value="Student Parking Area" <%= item.location === "Student Parking Area" ? 'selected' : '' %>>Student Parking Area</option>
+                                <option value="Faculty Parking Area" <%= item.location === "Faculty Parking Area" ? 'selected' : '' %>>Faculty Parking Area</option>
+                                <option value="Cricket / Football Grounds" <%= item.location === "Cricket / Football Grounds" ? 'selected' : '' %>>Cricket / Football Grounds</option>
+                                <option value="Main Entrance (Gate 1)" <%= item.location === "Main Entrance (Gate 1)" ? 'selected' : '' %>>Main Entrance (Gate 1)</option>
+                                <option value="Campus Walkways / Corridors" <%= item.location === "Campus Walkways / Corridors" ? 'selected' : '' %>>Campus Walkways / Corridors</option>
+                            </optgroup>
+                    
+                            <optgroup label="Residential">
+                                <option value="Male Hostel" <%= item.location === "Male Hostel" ? 'selected' : '' %>>Male Hostel</option>
+                                <option value="Female Hostel" <%= item.location === "Female Hostel" ? 'selected' : '' %>>Female Hostel</option>
+                            </optgroup>
+                    
+                            <optgroup label="Other">
+                                <option value="Other / Miscellaneous" <%= item.location === "Other / Miscellaneous" ? 'selected' : '' %>>Other / Miscellaneous</option>
+                            </optgroup>
+                        </select>
+                        <label for="location">Where did you find it?</label>
+                    </div>
+    
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" name="item[description]" placeholder="Description" id="description" style="height: 100px" required><%=item.description%></textarea>
+                        <label for="description">Detailed Description</label>
+                    </div>
+    
+                    <div class="mb-4">
+                        <label for="formFile" class="form-label fw-bold">Upload Item Image</label>
+                        <img class="form-img" src="<%=item.image%>" alt="" />
+                        <input class="form-control" type="file" id="formFile" name="item[image]"> 
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label d-block fw-bold">Claim Verification Method:</label>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="claim_options" id="claim-image" value="image" <%= item.questions.length === 0 ? 'checked' : 'disabled' %> >
+                            <label class="form-check-label" for="claim-image">Image Upload</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="claim_options" id="claim-questions" value="questions" <%= item.questions.length != 0 ? 'checked' : 'disabled' %>>
+                            <label class="form-check-label" for="claim-questions">Security Questions</label>
+                        </div>
+                    </div>
+                    <div class="questions-section border rounded p-3 mb-4 bg-light" style=<%= item.questions.length != 0 ? 'display: none;' : '' %>>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="fw-bold">Security Questions</span>
+                            <!-- <div>
+                                <button type="button" class="btn btn-sm btn-success add-questions">+</button>
+                                <button type="button" class="btn btn-sm btn-danger remove-questions">-</button>
+                            </div> -->
+                        </div>
+                        <div id="questions-container">
+                            <% item.questions.map((question,idx)=>{%>
+                                <input type="text" class="form-control mb-2" placeholder="question <%=idx+1%>" value="<%=question%>" name="questions[<%=idx%>]">
+                            <% }) %>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg btn-form">Update Item</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/js/index.js"></script>
+</body>

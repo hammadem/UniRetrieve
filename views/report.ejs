@@ -1,0 +1,119 @@
+<%- layout('/layouts/boilerplate.ejs') %>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 shadow-sm p-4 rounded border">
+                <h2 class="mb-4 text-center fw-bold">Report Found Item</h2>
+                
+                <form action="/items" method="post" enctype="multipart/form-data">
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="title" placeholder="Item Title" name="item[title]" required>
+                        <label for="title">Item Title</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="location" name="item[location]" aria-label="Location Select" required>
+                            <option value="" selected disabled>Select Location</option>
+                            
+                            <optgroup label="Academic Blocks">
+                                <option value="cs_block">CS (New Block)</option>
+                                <option value="ee_block">EE & CE</option>
+                                <option value="me_block">ME Block</option>
+                                <option value="ce_block">CVE Block</option>
+                                <option value="ms_block">Management Sciences Block</option>
+                                <option value="math_dept">Mathematics Department</option>
+                                <option value="humanities_dept">Humanities Department</option>
+                            </optgroup>
+    
+                            <optgroup label="Common Areas">
+                                <option value="library">Central Library</option>
+                                <option value="cafeteria">Main Cafeteria</option>
+                                <option value="student_service">Student Service Center</option>
+                                <option value="prayer_area">Prayer Area / Mosque</option>
+                                <option value="auditorium">University Auditorium</option>
+                                <option value="sports_complex">Sports Complex / Gym</option>
+                            </optgroup>
+    
+                            <optgroup label="Labs">
+                                <option value="computing_labs">General Computing Labs</option>
+                                <option value="se_lab">Software Engineering Lab</option>
+                                <option value="dld_lab">DLD Lab</option>
+                                <option value="mech_workshop">Mechanical Workshop</option>
+                                <option value="science_labs">Science Labs (Physics/Chem)</option>
+                            </optgroup>
+    
+                            <optgroup label="Admin & Support">
+                                <option value="admin_block">Admin Block (Reception)</option>
+                                <option value="exam_dept">Examination Department</option>
+                                <option value="accounts_office">Accounts / Treasurer Office</option>
+                                <option value="admission_office">Admission Office</option>
+                                <option value="medical_center">Medical Center</option>
+                                <option value="stationery_shop">Photocopy / Stationery Shop</option>
+                            </optgroup>
+    
+                            <optgroup label="Outdoor & Transport">
+                                <option value="bus_stand">University Bus Stand</option>
+                                <option value="student_parking">Student Parking Area</option>
+                                <option value="faculty_parking">Faculty Parking Area</option>
+                                <option value="sports_grounds">Cricket / Football Grounds</option>
+                                <option value="main_gate">Main Entrance (Gate 1)</option>
+                                <option value="walkways">Campus Walkways / Corridors</option>
+                            </optgroup>
+    
+                            <optgroup label="Residential">
+                                <option value="male_hostel">Male Hostel</option>
+                                <option value="female_hostel">Female Hostel</option>
+                            </optgroup>
+    
+                            <optgroup label="Other">
+                                <option value="other_miscellaneous">Other / Miscellaneous</option>
+                            </optgroup>
+                        </select>
+                        <label for="location">Where did you find it?</label>
+                    </div>
+    
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" name="item[description]" placeholder="Description" id="description" style="height: 100px" required></textarea>
+                        <label for="description">Detailed Description</label>
+                    </div>
+    
+                    <div class="mb-4">
+                        <label for="formFile" class="form-label fw-bold">Upload Item Image</label>
+                        <input class="form-control" type="file" id="formFile" name="item[image]"> 
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label d-block fw-bold">Claim Verification Method:</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="claim_options" id="claim-image" value="image" checked>
+                            <label class="form-check-label" for="claim-image">Image Upload</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="claim_options" id="claim-questions" value="questions">
+                            <label class="form-check-label" for="claim-questions">Security Questions</label>
+                        </div>
+                    </div>
+
+                    <div class="questions-section border rounded p-3 mb-4 bg-light" style="display: none;">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="fw-bold">Security Questions</span>
+                            <div>
+                                <button type="button" class="btn btn-sm btn-success add-questions">+</button>
+                                <button type="button" class="btn btn-sm btn-danger remove-questions">-</button>
+                            </div>
+                        </div>
+                        <div id="questions-container">
+                            <input type="text" class="form-control mb-2" placeholder="Question 1" name="questions[0]">
+                        </div>
+                    </div>
+    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg btn-form">Report Item</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/js/index.js"></script>
+</body>
