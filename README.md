@@ -211,10 +211,6 @@ http://localhost:8080
 
 ![Dashboard](assets/screenshots/dashboard.png)
 
-### Report Item Page
-
-![Report Item Page](assets/screenshots/report-item.png)
-
 ### Item Details Page
 
 ![Item Details Page](assets/screenshots/item-details.png)
