@@ -1,3 +1,5 @@
+const { Item } = require('./models/items');
+
 let isLoggedIn = (req,res,next)=>{
     if (!req.user) {
         req.session.path = req.originalUrl;

@@ -1,3 +1,4 @@
+const { Item } = require('../models/items');
 const { Claim } = require('../models/claims');
 
 let ClaimRender = async(req,res)=>{
