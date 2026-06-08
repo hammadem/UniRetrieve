@@ -215,10 +215,6 @@ http://localhost:8080
 
 ![Item Details Page](assets/screenshots/item-details.png)
 
-### Location Filter Page
-
-![Location Filter Page](assets/screenshots/location-filter.png)
-
 ### Claim Form
 
 ![Claim Form](assets/screenshots/claim-form.png)
