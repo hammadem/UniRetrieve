@@ -6,7 +6,12 @@ let ItemsList = async (req,res)=>{
     res.render('index', {items, owner: false});
 }
 
+let RenderReportPage = (req,res)=>{
+    res.render('report');
+}
+
 let PostItems = async (req,res)=>{
+    if (!req.body) throw new ExpressError (400,"send valid & complete data");
     let { item, questions } = req.body;
     let newItem = new Item ({
         ...item,
@@ -39,10 +44,6 @@ let LocationFilter = async(req,res)=>{
     }
 }
 
-let RenderReportPage = async (req,res)=>{
-    res.render('report');
-}
-
 let ItemRender = async (req,res)=>{
     let {id} = req.params;
     let item = await Item
@@ -55,8 +56,18 @@ let ItemRender = async (req,res)=>{
     res.render ('item',{item, owner: true});
 }
 
+let EditItem = async (req,res)=>{
+    let {id} = req.params;
+    let item = await Item.findById(id);
+    if (!item) {
+        req.flash ('error',"The Item you requested does not exist");
+        res.redirect('/items');
+    }
+    res.render ('edit',{item, owner: true});
+}
+
 let UpdateItem = async (req,res)=>{             
-    //Update
+        if (!req.body) throw new ExpressError (400,"send valid & complete data");
         let { item, questions } = req.body;
         let { id } = req.params;
         if (req.file && typeof req.file != undefined) {
@@ -69,20 +80,14 @@ let UpdateItem = async (req,res)=>{
 let DeleteItem = async (req,res)=>{
     let { id } = req.params;
     let item = await Item.findById(id);
-    let claims = await Claim.deleteMany({_id: {$in: item.claims}});
-    await Item.deleteOne({ _id: id });
-    req.flash ('success','Item Deleted (Owner Found) !');
-    res.redirect('/items');
-}
-
-let EditItem = async (req,res)=>{
-    let {id} = req.params;
-    let item = await Item.findById(id);
     if (!item) {
         req.flash ('error',"The Item you requested does not exist");
         res.redirect('/items');
     }
-    res.render ('edit',{item, owner: true});
+    let claims = await Claim.deleteMany({_id: {$in: item.claims}});
+    await Item.deleteOne({ _id: id });
+    req.flash ('success','Item Deleted (Owner Found) !');
+    res.redirect('/items');
 }
 
 module.exports = {ItemsList,PostItems,LocationFilter,RenderReportPage,ItemRender,UpdateItem,DeleteItem,EditItem}

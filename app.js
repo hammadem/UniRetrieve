@@ -7,14 +7,16 @@ const path = require('path');
 const session = require ('express-session');
 const MongoStore = require('connect-mongo').default;
 const flash = require('express-flash');
+const ExpressError = require('./utilities/ExpressError');
 
 const { loadata } = require ('./Sample_Data/data');
 const {isLoggedIn} = require('./middlewares');
 
 const methodOverride = require('method-override');
+
+const { User } = require('./models/users');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-
 
 const items = require('./routers/items');
 const claims = require('./routers/claims');
@@ -54,12 +56,12 @@ const sessionOptions = {
         httpOnly: true,
     }
 };
-
+app.use(flash());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
 app.use(session(sessionOptions));
-app.use(flash());
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(
@@ -96,6 +98,7 @@ app.use((req,res,next)=>{
     }
     next();
 });
+
 app.use('/items',items);
 app.use('/items/:id',claims);
 app.use('/',users);
@@ -117,16 +120,23 @@ app.get('/', (req,res)=>{
     res.redirect('/items');
 });
 
-
 /* Reporter (Admin) Page */
 app.get ('/dashboard', isLoggedIn, async (req,res)=>{
     let items = await Item.find({reporter: req.user._id});
     res.render('index', {items, owner: true});
 });
 
-
 app.get ('/sample', (req,res)=>{
     loadata();
+});
+
+app.use ((req,res,next)=>{
+    next(new ExpressError(404,"Page Not Found"));
+});
+
+app.use ('\\*',(err,req,res,next)=>{
+    let {status=500,message="something went wrong"} = err;
+    res.status(status).render('error.ejs',{err});
 });
 
 app.listen(PORT,()=>{

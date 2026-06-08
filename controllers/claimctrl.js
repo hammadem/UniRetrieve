@@ -5,6 +5,7 @@ let ClaimRender = async(req,res)=>{
 }
 
 let PostClaim = async(req,res)=>{
+    if (!req.body) throw new ExpressError (400,"send valid & complete data");
     let { claim } = req.body;
     let { id } = req.params;
     let newClaim = new Claim({...claim});
