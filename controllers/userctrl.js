@@ -1,3 +1,5 @@
+const { User } = require('../models/users');
+
 let SignupRender = (req,res)=>{
     res.render('signup');
 }

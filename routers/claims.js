@@ -6,7 +6,6 @@ const { storage } = require('../Cloud_Config');
 const multer = require('multer');
 const upload = multer({storage: storage});
 
-const { Claim } = require('../models/claims');
 const {isLoggedIn,isNotReporter} = require('../middlewares');
 const {ClaimRender,PostClaim} = require('../controllers/claimctrl');
 
@@ -15,4 +14,4 @@ router
         .get (isLoggedIn, isNotReporter, ClaimRender)  // Claim Page
         .post (isLoggedIn, isNotReporter, upload.single('claim[image]'), WrapAsync(PostClaim));
 
-    module.exports = router;
+module.exports = router;

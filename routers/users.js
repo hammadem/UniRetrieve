@@ -16,10 +16,10 @@ router
 router
     .route('/login')
         .get(LoginRender)
-        .post(redirectUrl,passport.authenticate('local',{ failureRedirect: '/login' }), WrapAsync(logInRedirect));
+        .post(redirectUrl,passport.authenticate('local',{ failureRedirect: '/login', failureFlash: "Wrong Username or Password" }), logInRedirect);
 
 /* logout */
 router
-    .post('/logout', isLoggedIn, WrapAsync(Logout));
+    .post('/logout', isLoggedIn, Logout);
 
-    module.exports = router;
+module.exports = router;

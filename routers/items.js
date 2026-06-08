@@ -22,7 +22,7 @@ router
 
 router
     // Report Item
-    .get('/report',isLoggedIn, RenderReportPage);
+    .get('/report', isLoggedIn, RenderReportPage);
 
 router
     .route('/:id')

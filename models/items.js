@@ -24,4 +24,4 @@ let itemSchema = new Schema ({
 
 let Item = new model('Item', itemSchema);
 
-module.exports = {Item};
+module.exports = { Item };

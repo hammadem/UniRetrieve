@@ -1,3 +1,5 @@
+const { Claim } = require('../models/claims');
+
 let ClaimRender = async(req,res)=>{
     let {id} = req.params;
     let item = await Item.findById(id);

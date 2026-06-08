@@ -1,5 +1,3 @@
-const flash = require('express-flash');
-
 let isLoggedIn = (req,res,next)=>{
     if (!req.user) {
         req.session.path = req.originalUrl;

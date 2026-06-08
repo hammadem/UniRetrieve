@@ -11,4 +11,4 @@ let claimSchema = new Schema({
 
 let Claim = new model('Claim',claimSchema);
 
-module.exports = {Claim}
+module.exports = { Claim }

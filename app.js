@@ -18,6 +18,8 @@ const { User } = require('./models/users');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
+const { Item } = require('./models/items');
+
 const items = require('./routers/items');
 const claims = require('./routers/claims');
 const users = require('./routers/users');
@@ -134,7 +136,7 @@ app.use ((req,res,next)=>{
     next(new ExpressError(404,"Page Not Found"));
 });
 
-app.use ('\\*',(err,req,res,next)=>{
+app.use ((err,req,res,next)=>{
     let {status=500,message="something went wrong"} = err;
     res.status(status).render('error.ejs',{err});
 });
